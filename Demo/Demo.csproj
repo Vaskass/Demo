@@ -60,6 +60,11 @@
     <Compile Include="reg.xaml.cs">
       <DependentUpon>reg.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Room.cs" />
+    <Compile Include="Uchet.cs" />
+    <Compile Include="uchet.xaml.cs">
+      <DependentUpon>uchet.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,6 +79,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="reg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uchet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
