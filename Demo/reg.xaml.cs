@@ -90,5 +90,13 @@ namespace Demo
                 polCB.Text = selectedClient.pol;
             }
         }
+
+        private void srcText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            using (DataContext db = new DataContext(Properties.Settings.Default.connectionString))
+            {
+                clientTable.ItemsSource = db.GetTable<Client>().Where(c=> c.fam.Contains(srcText.Text)).OrderBy(c => c.fam).ThenBy(c=>c.name);
+            }
+        }
     }
 }

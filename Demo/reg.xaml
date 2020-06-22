@@ -48,6 +48,7 @@
         <Button x:Name="addBTN" Content="Добавить" Margin="0,2,3,0" VerticalAlignment="Top" Grid.Row="1" HorizontalAlignment="Right" Width="75" Click="addBTN_Click"/>
         <Button x:Name="changeBTN" Content="Изменить" Margin="0,2,83,0" VerticalAlignment="Top" Grid.Row="1" HorizontalAlignment="Right" Width="75" Click="changeBTN_Click"/>
         <Button x:Name="clearBTN" Content="Отчистить" Margin="0,2,163,0" VerticalAlignment="Top" Grid.Row="1" HorizontalAlignment="Right" Width="75"/>
+        <TextBox x:Name="srcText" HorizontalAlignment="Left" Height="23" Margin="10,3,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="srcText_TextChanged"/>
 
     </Grid>
 </Window>
