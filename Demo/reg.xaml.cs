@@ -35,7 +35,7 @@ namespace Demo
         {
             using (DataContext db = new DataContext(Properties.Settings.Default.connectionString))
             {
-                clientTable.ItemsSource = db.GetTable<Client>();
+                clientTable.ItemsSource = db.GetTable<Client>().OrderBy(u=> u.fam);
             }
         }
 
