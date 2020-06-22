@@ -1,0 +1,62 @@
+﻿ Предстваление:
+ var view = from uc in db.GetTable<Uchet>()
+                           join rm in db.GetTable<Room>() on uc.IDroom equals rm.ID
+                           join cl in srcFIO on uc.IDclient equals cl.ID
+                           orderby cl.fam descending
+                           select new UchetView { ID = uc.ID, IDclient = cl.ID, IDroom = rm.ID, ... };
+
+Заполнение комбобокса:
+client.Clear();
+clientCB.Items.Clear();
+foreach (Client cl in db.GetTable<Client>())
+{
+    clientCB.Items.Add(cl.fam + " " + cl.name + " " + cl.otch);
+    client.Add(cl.ID);
+}
+if (clientCB.Items.Count > 0)
+{
+    clientCB.SelectedIndex = 0;
+}
+
+Добавление:
+Client newClient = new Client()
+ {
+     fam = famTB.Text,
+     name = nameTB.Text,
+     ...
+ };
+ db.GetTable<Client>().InsertOnSubmit(newClient);
+ db.SubmitChanges();
+
+ Изменение: 
+ using (DataContext db = new DataContext(Properties.Settings.Default.connectionString))
+ {
+     Client selectedClient = db.GetTable<Client>().Where(client => client.ID == (clientTable.SelectedItem as Client).ID).FirstOrDefault();
+     selectedClient.fam = famTB.Text;
+     selectedClient.name = nameTB.Text;
+     ...
+     db.SubmitChanges();
+ }
+
+Поиск и сортировка:
+clientTable.ItemsSource = db.GetTable<Client>().Where(c=> c.fam.Contains(srcText.Text)).OrderBy(c => c.fam).ThenBy(c=>c.name);
+
+Пример класса:
+[Table(Name = "Учёт")]
+    public class Uchet
+    {
+        [Column(Name = "ID записи", IsDbGenerated = true, IsPrimaryKey = true)]
+        public int ID { get; set; }
+
+        [Column(Name = "ID клиента")]
+        public int IDclient { get; set; }
+        ...
+    }
+
+ Пример DataGrid:
+ <DataGrid x:Name="uchetTable" Margin="10,41,0,0" SelectionChanged="clientTable_SelectionChanged" HorizontalAlignment="Left" Width="410" Height="283" VerticalAlignment="Top" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ФИО клиента" Binding="{Binding FIO}" Width="auto"/>
+                <DataGridTextColumn Header="Дата заезда" Binding="{Binding dateIn, StringFormat=\{0:dd.MM.yy\}}"  Width="auto"/>
+            </DataGrid.Columns>
+</DataGrid>
